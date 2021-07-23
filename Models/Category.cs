@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotation;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Models
 {
@@ -8,10 +8,10 @@ namespace Shop.Models
       public int Id { get; set; }
 
 
-      [Requerid(ErrorMessage = "Este campo é obrigatório")]
-      [MaxLength(ErrorMessage = "Este campo deve conter entre 3 a 60 caracteres")]
-      [MinLength(ErrorMessage = "Este campo deve conter entre 3 a 60 caracteres")]
-      [DataType("nvarchar")]
+      [Required(ErrorMessage = "Este campo é obrigatório")]
+      [MaxLength(60, ErrorMessage = "Este campo deve conter entre 3 a 60 caracteres")]
+      [MinLength(3, ErrorMessage = "Este campo deve conter entre 3 a 60 caracteres")]
+      //[DataType(DataType.)]
       public string Title { get; set; }
    }
 }

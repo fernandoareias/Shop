@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 
 
 namespace Shop.Models
@@ -7,17 +8,19 @@ namespace Shop.Models
       [Key]
       public int Id { get; set; }
 
-      [Requerid(ErrorMessage = "Este campo é obrigatório")]
-      [MaxLenght(20, ErrorMessage = "Este campo deve conter entre 3 a 20 caracteres")]
-      [MinLenght(3, ErrorMessage = "Este campo deve conter entre 3 a 20 caracteres")]
+
+      [Required(ErrorMessage = "Esse campo é obrigatório")]
+      [MaxLength(30, ErrorMessage = "Esse campo deve conter no máximo 30 caracteres")]
       public string Username { get; set; }
 
-      [Requerid(ErrorMessage = "Este campo é obrigatório")]
-      [MaxLenght(20, ErrorMessage = "Este campo deve conter entre 3 a 20 caracteres")]
-      [MinLenght(3, ErrorMessage = "Este campo deve conter entre 3 a 20 caracteres")]
+
+      [Required(ErrorMessage = "Esse campo é obrigatório")]
+      [MinLength(8, ErrorMessage = "Esse campo deve conter no minimo 8 caracteres")]
       public string Password { get; set; }
 
-
+      [MaxLength(30, ErrorMessage = "Esse campo deve conter no máximo 30 caracteres")]
+      [MinLength(3, ErrorMessage = "Esse campo deve conter no minimo 3 caracteres")]
       public string Role { get; set; }
    }
+
 }

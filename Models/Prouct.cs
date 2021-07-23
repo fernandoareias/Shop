@@ -1,3 +1,7 @@
+using System.ComponentModel.DataAnnotations;
+using System;
+
+
 
 namespace Shop.Models
 {
@@ -7,23 +11,21 @@ namespace Shop.Models
       public int Id { get; set; }
 
 
-      [MaxLenght(60, ErrorMessage = "Este campo deve conter no maximo 60 caracters")]
-      [MinLenght(3, ErrorMessage = "Este campo deve conter no minimo 3 caracters")]
+      [Required(ErrorMessage = "Esse campo é obrigatório")]
+      [MaxLength(60, ErrorMessage = "Esse campo deve conter entre 3 a 60 caracteres")]
+      [MinLength(3, ErrorMessage = "Esse campo deve conter entre 3 a 60 caracteres")]
       public string Title { get; set; }
 
 
-      [MaxLenght(1024, ErrorMessage = "Este campo deve conter no maximo 1024 caracters")]
+      [MaxLength(1024, ErrorMessage = "Esse campo deve conter no máximo 1024 caracteres")]
       public string Description { get; set; }
 
-
-      [Requerid(ErrorMessage = "Este campo é obrigatorio")]
+      [Required(ErrorMessage = "Esse campo é obrigatório")]
       [Range(1, int.MaxValue, ErrorMessage = "O preço deve ser maior que zero")]
       public decimal Price { get; set; }
 
-
-      [Requerid(ErrorMessage = "Este campo é obrigatorio")]
+      [Required(ErrorMessage = "Esse campo é obrigatório")]
       public Category Categorys { get; set; }
-
 
    }
 }
