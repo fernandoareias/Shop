@@ -34,6 +34,7 @@ public class CategoryController : ControllerBase
    {
       // Busca no banco a categoria que possui o ID passado pela URL e retorna 
       var category = await context.Categorys.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+      
       return Ok(category);
    }
 
