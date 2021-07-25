@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Shop.Data;
 
@@ -35,6 +38,26 @@ namespace Shop
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop", Version = "v1" });
          });
 
+         // Autenticação do token
+         var key = Encoding.ASCII.GetBytes(Settings.Secret);
+
+         services.AddAuthentication(x =>
+         {
+            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+         }).AddJwtBearer(x =>
+         {
+            x.RequireHttpsMetadata = false;
+            x.SaveToken = true;
+            x.TokenValidationParameters = new TokenValidationParameters
+            {
+               ValidateIssuerSigningKey = true,
+               IssuerSigningKey = new SymmetricSecurityKey(key),
+               ValidateIssuer = false,
+               ValidateAudience = false
+            };
+         });
+
          // Dependency Injection for DataBase in Memory with name Shop
          //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Shop"));
          services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
@@ -55,6 +78,8 @@ namespace Shop
          app.UseHttpsRedirection();
 
          app.UseRouting();
+         // Autenticação
+         app.UseAuthentication();
 
          app.UseAuthorization();
 
