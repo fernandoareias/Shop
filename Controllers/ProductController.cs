@@ -101,7 +101,5 @@ namespace Shop.Controllers
             return BadRequest(new { message = "Não foi possivel registrar o produto" });
          }
       }
-
-
    }
 }
