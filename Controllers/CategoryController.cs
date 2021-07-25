@@ -133,13 +133,8 @@ namespace Shop.Controllers
          }
          catch (Exception)
          {
-
             return BadRequest(new { message = "Não foi possivel remover a categoria" });
          }
-
       }
-
-
-
    }
 }
