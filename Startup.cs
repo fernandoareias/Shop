@@ -36,7 +36,8 @@ namespace Shop
          });
 
          // Dependency Injection for DataBase in Memory with name Shop
-         services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Shop"));
+         //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Shop"));
+         services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
          // Similar to Using, creates a connection to the BD and then closes
          services.AddScoped<DataContext, DataContext>();
       }
