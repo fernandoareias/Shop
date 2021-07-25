@@ -15,11 +15,9 @@ namespace Shop.Models
 
 
       [Required(ErrorMessage = "Esse campo é obrigatório")]
-      [MinLength(8, ErrorMessage = "Esse campo deve conter no minimo 8 caracteres")]
+      [MaxLength(8, ErrorMessage = "Esse campo deve conter no minimo 8 caracteres")]
       public string Password { get; set; }
 
-      [MaxLength(30, ErrorMessage = "Esse campo deve conter no máximo 30 caracteres")]
-      [MinLength(3, ErrorMessage = "Esse campo deve conter no minimo 3 caracteres")]
       public string Role { get; set; }
    }
 
