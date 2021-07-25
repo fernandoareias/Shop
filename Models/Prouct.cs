@@ -25,6 +25,7 @@ namespace Shop.Models
       public decimal Price { get; set; }
 
       [Required(ErrorMessage = "Esse campo é obrigatório")]
+      public int CategoryId { get; set; }
       public Category Categorys { get; set; }
 
    }
