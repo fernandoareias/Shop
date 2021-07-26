@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
@@ -18,6 +19,7 @@ namespace Shop.Controllers
 
       [HttpGet]
       [Route("")]
+      [AllowAnonymous]
       public async Task<ActionResult<List<Category>>> Get([FromServices] DataContext context)
       {
          try
@@ -31,7 +33,7 @@ namespace Shop.Controllers
          catch (Exception)
          {
 
-            return BadRequest(new { message = "Não foi possivel retornar as categorias" });
+            return BadRequest(new { message = "Ocorreu um erro. Por favor, tente novamente mais tarde" });
          }
 
       }
@@ -40,6 +42,7 @@ namespace Shop.Controllers
       [HttpGet]
       // Verifica se o valor passado pela URL é inteiro
       [Route("{id:int}")]
+      [AllowAnonymous]
       public async Task<ActionResult<Category>> GetById(int id, [FromServices] DataContext context)
       {
          try
@@ -53,7 +56,7 @@ namespace Shop.Controllers
          }
          catch (Exception)
          {
-            return BadRequest(new { message = "Não foi possivel encontrar a categoria" });
+            return BadRequest(new { message = "Ocorreu um erro. Por favor, tente novamente mais tarde" });
 
          }
       }
@@ -61,6 +64,7 @@ namespace Shop.Controllers
 
       [HttpPost]
       [Route("")]
+      [Authorize(Roles = "employee")]
 
       public async Task<ActionResult<Category>> Post([FromBody] Category model, [FromServices] DataContext context)
       {
@@ -76,15 +80,16 @@ namespace Shop.Controllers
             await context.SaveChangesAsync();
             return Ok(model);
          }
-         catch
+         catch (Exception)
          {
 
-            return BadRequest(new { message = "Não foi possivel criar a categoria" });
+            return BadRequest(new { message = "Ocorreu um erro. Por favor, tente novamente mais tarde" });
          }
       }
 
       [HttpPut]
       [Route("{id:int}")]
+      [Authorize(Roles = "employee")]
       public async Task<ActionResult<Category>> Put(int id, [FromBody] Category model, [FromServices] DataContext context)
       {
          // Verificar se o ID informado pela URL é o mesmo da categoria
@@ -111,12 +116,13 @@ namespace Shop.Controllers
          catch (Exception)
          {
 
-            return BadRequest(new { message = "Não foi possivel atualizar a categoria" });
+            return BadRequest(new { message = "Ocorreu um erro. Por favor, tente novamente mais tarde" });
          }
       }
 
       [HttpDelete]
       [Route("{id:int}")]
+      [Authorize(Roles = "employee")]
       public async Task<ActionResult<Category>> Delete(int id, [FromServices] DataContext context)
       {
          // Obtem a categoria que possui o ID passado pela URL
@@ -133,7 +139,7 @@ namespace Shop.Controllers
          }
          catch (Exception)
          {
-            return BadRequest(new { message = "Não foi possivel remover a categoria" });
+            return BadRequest(new { message = "Ocorreu um erro. Por favor, tente novamente mais tarde" });
          }
       }
    }
