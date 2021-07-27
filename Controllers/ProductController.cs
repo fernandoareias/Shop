@@ -16,13 +16,14 @@ namespace Shop.Controllers
 
    // Endpoint => URL
    // https://127.0.01:5001/produtos
-   [Route("products")]
+   [Route("v1/products")]
    public class ShopController : ControllerBase
    {
 
       [HttpGet]
       [Route("")]
       [AllowAnonymous]
+      [ResponseCache(VaryByHeader = "User-Agent", Location = ResponseCacheLocation.Any, Duration = 30)]
       public async Task<ActionResult<List<Product>>> Get([FromServices] DataContext context)
       {
          try
