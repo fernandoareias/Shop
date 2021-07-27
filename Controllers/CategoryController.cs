@@ -12,14 +12,17 @@ using Shop.Models;
 namespace Shop.Controllers
 {
    // Endpoint => URL
-   // https://127.0.01:5001/categories
-   [Route("categories")]
+   // https://127.0.01:5001/v1/categories
+   [Route("v1/categories")]
    public class CategoryController : ControllerBase
    {
 
       [HttpGet]
       [Route("")]
       [AllowAnonymous]
+      [ResponseCache(VaryByHeader = "User-Agent", Location = ResponseCacheLocation.Any, Duration = 30)]
+      // Para desativar o cache
+      //[ResponseCache(Duration = 0, Location =ResponseCacheLocation.None, NoStore = true)]
       public async Task<ActionResult<List<Category>>> Get([FromServices] DataContext context)
       {
          try

@@ -1,4 +1,3 @@
-
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -12,13 +11,13 @@ using System.Collections.Generic;
 
 namespace Shop.Controllers
 {
-   [Route("users")]
+   [Route("v1/users")]
    public class UserController : Controller
    {
 
       // Retorna a lista de usuarios registrados
       [HttpGet]
-      [Route("")] //https://127.0.0.1:5001/users/
+      [Route("")] //https://127.0.0.1:5001/v1/users/
       [Authorize(Roles = "manager")]
       public async Task<ActionResult<List<User>>> Get([FromServices] DataContext context)
       {
@@ -40,7 +39,7 @@ namespace Shop.Controllers
 
       // Caso exista, retorna o usuario que possui o ID passado via URL
       [HttpGet]
-      [Route("{id:int}")] // https://127.0.0.1:5001/users/1
+      [Route("{id:int}")] // https://127.0.0.1:5001/v1/users/1
       [Authorize(Roles = "manager")]
 
       public async Task<ActionResult<User>> GetById([FromServices] DataContext context, int id)
@@ -60,7 +59,7 @@ namespace Shop.Controllers
 
       // Caso exista, retorna a lista de usuario com o cargo passado via url
       [HttpGet]
-      [Route("{role}")]// https://127.0.0.1:5001/users/employee
+      [Route("{role}")]// https://127.0.0.1:5001/v1/users/employee
       [Authorize(Roles = "manager")]
       public async Task<ActionResult<List<User>>> GetByRole([FromServices] DataContext context, String role)
       {
@@ -82,7 +81,7 @@ namespace Shop.Controllers
       }
       // Caso o modelo passado seja valido, registra um novo usuario no BD
       [HttpPost]
-      [Route("")]// https://127.0.0.1:5001/users/
+      [Route("")]// https://127.0.0.1:5001/v1/users/
       [AllowAnonymous]
       public async Task<ActionResult<User>> Post([FromServices] DataContext context, [FromBody] User model)
       {
@@ -104,7 +103,7 @@ namespace Shop.Controllers
 
       // Função responsavel pelo login do usuario
       [HttpPost]
-      [Route("login")] // https://127.0.0.1:5001/users/login/
+      [Route("login")] // https://127.0.0.1:5001/v1/users/login/
       [AllowAnonymous]
       public async Task<ActionResult<dynamic>> Authenticate([FromServices] DataContext context, [FromBody] User model)
       {
@@ -130,7 +129,7 @@ namespace Shop.Controllers
 
       // Caso o usuario com ID passado pela url exista, ira atualizar os dados passados pelo body
       [HttpPut]
-      [Route("{id:int}")] // https://127.0.0.1:5001/users/1
+      [Route("{id:int}")] // https://127.0.0.1:5001/v1/users/1
       [Authorize(Roles = "manager")]
 
       public async Task<ActionResult<User>> Update(int id, [FromServices] DataContext context, [FromBody] User model)
@@ -160,7 +159,7 @@ namespace Shop.Controllers
 
       // Caso o usuario cujo o ID passado pelo URL exista, sera removido
       [HttpDelete]
-      [Route("{id:int}")] // https://127.0.0.1:5001/users/1
+      [Route("{id:int}")] // https://127.0.0.1:5001/v1/users/1
       [Authorize(Roles = "manager")]
 
       public async Task<ActionResult<User>> Delete(int id, [FromServices] DataContext context)
